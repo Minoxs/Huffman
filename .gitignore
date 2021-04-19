@@ -9,3 +9,15 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+
+# IDE stuff
+.idea
+out
+build
+
+# Python venv
+venv
+
+# CMake build folders
+cmake-build-debug
+cmake-build-release
