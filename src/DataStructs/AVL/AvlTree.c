@@ -116,7 +116,7 @@ void rotateDoubleLeft(AVL **p) {
  * @param root
  * @param key
  */
-int insertNode(AVL **root, char key) {
+int insertNode(AVL **root, char key, int count) {
     AVL *tree = *root;
     int alterBalance = 1;
 
@@ -127,7 +127,7 @@ int insertNode(AVL **root, char key) {
         tree->left  = initializeAVL();
         tree->right  = initializeAVL();
         tree->balanceFactor = 0;
-        tree->count = 1;
+        tree->count = count;
     }
     else if (key == tree->key) {
         tree->count += 1;
@@ -136,7 +136,7 @@ int insertNode(AVL **root, char key) {
     else {
         // If the key to add is lesser than this node's key, add to the left
         if (key < tree->key) {
-            alterBalance = insertNode(&tree->left, key);
+            alterBalance = insertNode(&tree->left, key, count);
             // If this insert would unbalance tree, do a rotation -- but only
             if (alterBalance) {
                 switch(tree->balanceFactor) {
@@ -154,7 +154,7 @@ int insertNode(AVL **root, char key) {
         }
         // Else add to the right
         else {
-            alterBalance = insertNode(&tree->right, key);
+            alterBalance = insertNode(&tree->right, key, count);
             // Same as above
             if (alterBalance) {
                 switch(tree->balanceFactor) {
@@ -286,4 +286,70 @@ int getHeight(AVL *node) {
         else
             return 1+right;
     }
+}
+
+typedef struct Info_st {
+    char key;
+    int count;
+} Info;
+
+/*
+ *  Internal method to save nodes at a given level
+ *  Yoinked from geeksforgeeks
+ */
+void saveGivenLevel(AVL* root, int level, FILE **ptr)
+{
+    if (root == NULL)
+        return;
+    if (level == 1) {
+        Info info = {root->key, root->count};
+        fwrite(&info, sizeof(Info), 1, *ptr);
+    }
+    else if (level > 1)
+    {
+        saveGivenLevel(root->left, level - 1, ptr);
+        saveGivenLevel(root->right, level - 1, ptr);
+    }
+}
+
+/*
+ * Internal method to save tree level by level
+ * Yoinked from geeksforgeeks
+ */
+void saveTreeByLevel(AVL* root, FILE **ptr)
+{
+    int h = getHeight(root);
+    int i;
+    for (i=1; i<=h; i++)
+        saveGivenLevel(root, i, ptr);
+}
+
+/**
+ * Saves tree in the file
+ * @param tree
+ * @param filename
+ */
+void saveTree(AVL *tree, char* filename) {
+    FILE *ptr = fopen(filename, "wb");
+    saveTreeByLevel(tree, &ptr);
+    fclose(ptr);
+}
+
+/**
+ * Loads tree from .idxtree and returns a pointer to the tree
+ * @param filename
+ * @return AVL* tree pointer
+ */
+AVL * loadTree(char* filename) {
+    FILE *ptr = fopen(filename, "rb");
+
+    AVL* toReturn = initializeAVL();
+
+    Info info;
+    while (fread(&info, sizeof(Info), 1, ptr)) {
+        insertNode(&toReturn, info.key, info.count);
+    }
+    fclose(ptr);
+
+    return toReturn;
 }
