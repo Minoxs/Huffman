@@ -12,7 +12,7 @@ void Tree_AVL_Test() {
 
     char keys[] = {'i', 'g', 'e', 'k', 'z', 'h', 'j', 'm', 'n'};
     for (int i = 0; i < sizeof(keys)/sizeof(char); ++i) {
-        insertNode(&tree, keys[i]);
+        insertNode(&tree, keys[i], 1);
     }
 
     printTree(tree);
@@ -28,8 +28,22 @@ void File_Test() {
     }
 }
 
+void Save_AVL_Test() {
+    AVL *tree = initializeAVL();
+
+    char keys[] = {'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'z'};
+    for (int i = 0; i < sizeof(keys)/sizeof(char); ++i) {
+        insertNode(&tree, keys[i], 1);
+    }
+
+    saveTree(tree, "tree.idxt");
+    AVL *newTree = loadTree("tree.idxt");
+    printTree(newTree);
+}
+
 int main() {
     Tree_AVL_Test();
     File_Test();
+    Save_AVL_Test();
     return 0;
 }

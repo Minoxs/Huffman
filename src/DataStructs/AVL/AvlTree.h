@@ -17,11 +17,14 @@ typedef struct AVL_st {
 
 AVL* initializeAVL();
 
-int insertNode(AVL **root, char key);
+int insertNode(AVL **root, char key, int count);
 void removeNode(AVL **removeNode, AVL *removeNodeFather);
 void printTree(AVL *root);
 
 int getHeight(AVL *node);
 int countNodes(AVL *root);
+
+void saveTree(AVL *tree, char* filename);
+AVL * loadTree(char* filename);
 
 #endif //INC_2_ESTRUTURADEDADOS_AVL_H

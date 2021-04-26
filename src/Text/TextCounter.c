@@ -86,7 +86,7 @@ CLT* parseText(FILE* text) {
     char toCount[BUFFER_SIZE];
     while (fgets(toCount, BUFFER_SIZE, text)) {
         for (int i = 0; i < strlen(toCount); ++i) {
-            insertNode(&countTree, toCount[i]);
+            insertNode(&countTree, toCount[i], 1);
         }
     }
     return flattenTree(&countTree);
