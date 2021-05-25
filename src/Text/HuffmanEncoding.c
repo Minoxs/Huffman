@@ -3,7 +3,7 @@
 // Github: https://github.com/minoxs
 //
 
-#include "HammingEncoding.h"
+#include "HuffmanEncoding.h"
 
 // TODO 'Create Encoding Tree' (CountedLetterTable) -> (EncodingTree)
 
