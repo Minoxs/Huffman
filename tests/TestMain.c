@@ -21,29 +21,18 @@ void Tree_AVL_Test() {
 void File_Test() {
     FILE *text = getTextFile("../tests/Test.txt");
     if (text != NULL) {
-        CLT *table = parseText(text);
-        for (int i = 1; i < table[0].count; ++i) {
-            printf("%d %c %d\n", i, table[i].key, table[i].count);
+        CountedLetters* table = parseText(text);
+        if (table == NULL) return;
+
+        for (int i = 0; i < table->arrSize; ++i) {
+            LetterCount letter = table->letters[i];
+            printf("%d %c %d\n", i, letter.key, letter.count);
         }
     }
-}
-
-void Save_AVL_Test() {
-    AVL *tree = initializeAVL();
-
-    char keys[] = {'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'z'};
-    for (int i = 0; i < sizeof(keys)/sizeof(char); ++i) {
-        insertNode(&tree, keys[i], 1);
-    }
-
-    saveTree(tree, "tree.idxt");
-    AVL *newTree = loadTree("tree.idxt");
-    printTree(newTree);
 }
 
 int main() {
     Tree_AVL_Test();
     File_Test();
-    Save_AVL_Test();
     return 0;
 }

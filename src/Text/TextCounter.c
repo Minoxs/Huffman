@@ -10,6 +10,20 @@
 #include "../DataStructs/AVL/AvlTree.h"
 
 #define BUFFER_SIZE 256
+
+/**
+ * Created CountedLetters struct given size and array LetterCount
+ * @param size
+ * @param letters
+ * @return
+ */
+CountedLetters* createCountedLetters(int size, LetterCount* letters) {
+    CountedLetters* table = malloc(sizeof(CountedLetters));
+    table->arrSize = size;
+    table->letters = letters;
+    return table;
+}
+
 /**
  * Finds smallest element of the tree and its father
  * @param tree
@@ -49,11 +63,11 @@ void findSmallest(AVL *tree, AVL **node, AVL **nodeFather) {
  * @param tree
  * @return CLT
  */
-CLT popSmallestFromTree(AVL **tree) {
+LetterCount popSmallestFromTree(AVL **tree) {
     AVL *smallest, *father = NULL;
     findSmallest(*tree, &smallest, &father);
 
-    CLT toReturn = {smallest->key, smallest->count};
+    LetterCount toReturn = {smallest->key, smallest->count};
     if (smallest == *tree && smallest->left == NULL && smallest->right == NULL) *tree = NULL;
     removeNode(&smallest, father);
     return toReturn;
@@ -64,23 +78,21 @@ CLT popSmallestFromTree(AVL **tree) {
  * @param countTree will be NULL at the end
  * @return
  */
-CLT* flattenTree(AVL **countTree) {
+CountedLetters* flattenTree(AVL **countTree) {
     int size = countNodes(*countTree);
-    CLT *table = calloc(size+1, sizeof(char));
-    CLT tableInfo = {'\0', size};
-    table[0] = tableInfo;
-    for (int i = 1; i < size; ++i) {
+    LetterCount *table = calloc(size, sizeof(LetterCount));
+    for (int i = 0; i < size; ++i) {
         table[i] = popSmallestFromTree(countTree);
     }
-    return table;
+    return createCountedLetters(size, table);
 }
 
 /**
  * Given a text file, counts how many of each letter there are
  * @param text
- * @return CLT array in ascending order of letter count
+ * @return CountedLetter struct pointer with letters array in ascending order of letter count
  */
-CLT* parseText(FILE* text) {
+CountedLetters* parseText(FILE* text) {
     if (text == NULL) return NULL;
     AVL *countTree = initializeAVL();
     char toCount[BUFFER_SIZE];
