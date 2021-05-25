@@ -6,6 +6,8 @@
 #ifndef TEXT_COUNTER_H
 #define TEXT_COUNTER_H
 
+#include <stdio.h>
+
 /**
  * Counted Letter struct
  */
