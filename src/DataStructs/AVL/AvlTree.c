@@ -265,7 +265,6 @@ void removeNode(AVL **removeNode, AVL *removeNodeFather) {
         }
 
         free(*removeNode);
-        *removeNode = NULL;
     }
 }
 
