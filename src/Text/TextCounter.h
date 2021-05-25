@@ -7,14 +7,21 @@
 #define HAMMING_TEXTCOUNTER_H
 
 /**
- * Counted Letter Table struct
- * When used as an array, 0th element must be key = '\0' and count = size of array
+ * Counted Letter struct
  */
-typedef struct CLT_st {
+typedef struct LetterCount_st {
     char key;
     int count;
-} CLT;
+} LetterCount;
 
-CLT* parseText(FILE *text);
+/**
+ * Counted letter table
+ */
+typedef struct CountedLetters_st {
+    int arrSize;
+    LetterCount* letters; // Array of arrSize
+} CountedLetters;
+
+CountedLetters* parseText(FILE *text);
 
 #endif //HAMMING_TEXTCOUNTER_H
