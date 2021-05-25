@@ -3,23 +3,23 @@
 # Github: https://github.com/minoxs
 #
 cmake_minimum_required(VERSION 3.17)
-project(Hamming C)
+project(Huffman C)
 set(CMAKE_C_STANDARD 99)
 
 SET(SOURCE_FILES
-        src/DataStructs/Hamming/HammingTree.c
-        src/DataStructs/Hamming/HammingTree.h
+        src/DataStructs/Huffman/HuffmanTree.c
+        src/DataStructs/Huffman/HuffmanTree.h
         src/Text/TextCounter.c
         src/Text/TextCounter.h
         src/DataStructs/AVL/AvlTree.c
         src/DataStructs/AVL/AvlTree.h
         src/FileHandler/FileHandler.c
         src/FileHandler/FileHandler.h
-        src/Text/HammingEncoding.c
-        src/Text/HammingEncoding.h)
+        src/Text/HuffmanEncoding.c
+        src/Text/HuffmanEncoding.h)
 
 #Main C stuff
-add_executable(Hamming ${SOURCE_FILES} tests/TestMain.c)
+add_executable(Huffman ${SOURCE_FILES} tests/TestMain.c)
 
 #Python Wrapper Stuff
 #This will be left just as an example for now

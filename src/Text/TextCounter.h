@@ -3,8 +3,8 @@
 // Github: https://github.com/minoxs
 //
 
-#ifndef HAMMING_TEXTCOUNTER_H
-#define HAMMING_TEXTCOUNTER_H
+#ifndef TEXT_COUNTER_H
+#define TEXT_COUNTER_H
 
 /**
  * Counted Letter struct
@@ -24,4 +24,4 @@ typedef struct CountedLetters_st {
 
 CountedLetters* parseText(FILE *text);
 
-#endif //HAMMING_TEXTCOUNTER_H
+#endif //TEXT_COUNTER_H
