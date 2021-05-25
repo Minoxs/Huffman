@@ -24,7 +24,4 @@ void printTree(AVL *root);
 int getHeight(AVL *node);
 int countNodes(AVL *root);
 
-void saveTree(AVL *tree, char* filename);
-AVL * loadTree(char* filename);
-
 #endif //INC_2_ESTRUTURADEDADOS_AVL_H
