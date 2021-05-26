@@ -6,6 +6,8 @@
 #include "../src/DataStructs//AVL/AvlTree.h"
 #include "../src/FileHandler/FileHandler.h"
 #include "../src/Text/TextCounter.h"
+#include "../src/DataStructs/Huffman/HuffmanTree.h"
+#include "../src/Text/HuffmanEncoding.h"
 
 void Tree_AVL_Test() {
     AVL *tree = initializeAVL();
@@ -28,6 +30,8 @@ void File_Test() {
             LetterCount letter = table->letters[i];
             printf("%d %c %d\n", i, letter.key, letter.count);
         }
+
+        HuffmanTree* tree = createEncodingTree(table);
     }
 }
 
