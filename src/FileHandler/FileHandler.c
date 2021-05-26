@@ -4,11 +4,7 @@
 //
 
 #include "FileHandler.h"
-#include <stdlib.h>
 
-// Placeholder for where FileHandling will be
-
-// TODO 'Get Text File' (Filename -> File)
 FILE* getTextFile(char* filename) {
     return fopen(filename, "r");
 }
