@@ -27,5 +27,6 @@ HuffmanTree* popFromStart(HuffmanList** list);
 void insertHList(HuffmanList** list, HuffmanTree* tree);
 
 int isLeaf(HuffmanTree* node);
+int getHufHeight(HuffmanTree* tree);
 
 #endif //HUFFMAN_TREE_H
