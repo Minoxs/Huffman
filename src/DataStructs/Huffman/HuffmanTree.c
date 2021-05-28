@@ -112,3 +112,23 @@ HuffmanTree* appendTwoElements(HuffmanTree* elem1, HuffmanTree* elem2) {
 int isLeaf(HuffmanTree* node) {
     return node->left == NULL && node->right == NULL;
 }
+
+/**
+ * Returns the height of the Huffman tree
+ * @param tree
+ * @return
+ */
+int getHufHeight(HuffmanTree* tree) {
+    if (tree == NULL)
+        return 0;
+    else {
+        int left, right;
+        left = getHufHeight(tree->left);
+        right = getHufHeight(tree->right);
+
+        if (left >= right)
+            return 1+left;
+        else
+            return 1+right;
+    }
+}
