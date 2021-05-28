@@ -103,3 +103,12 @@ HuffmanTree* appendTwoElements(HuffmanTree* elem1, HuffmanTree* elem2) {
             (LetterCount) {NULL_CHAR, elem1->sum+elem2->sum}, elem1, elem2
             );
 }
+
+/**
+ * Is the given node a leaf
+ * @param node
+ * @return
+ */
+int isLeaf(HuffmanTree* node) {
+    return node->left == NULL && node->right == NULL;
+}
