@@ -16,7 +16,16 @@ SET(SOURCE_FILES
         src/FileHandler/FileHandler.c
         src/FileHandler/FileHandler.h
         src/Text/HuffmanEncoding.c
-        src/Text/HuffmanEncoding.h)
+        src/Text/HuffmanEncoding.h
+        src/DataStructs/ArrayList/ArrayList.c
+        src/DataStructs/ArrayList/ArrayList.h
+        src/DataStructs/Dictionary/Key/DictKey.c
+        src/DataStructs/Dictionary/Key/DictKey.h
+        src/DataStructs/Dictionary/Value/DictValue.c
+        src/DataStructs/Dictionary/Value/DictValue.h
+        src/DataStructs/Dictionary/Dictionary.c
+        src/DataStructs/Dictionary/Dictionary.h
+)
 
 #Main C stuff
 add_executable(Huffman ${SOURCE_FILES} tests/TestMain.c)

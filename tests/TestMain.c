@@ -8,6 +8,7 @@
 #include "../src/Text/TextCounter.h"
 #include "../src/DataStructs/Huffman/HuffmanTree.h"
 #include "../src/Text/HuffmanEncoding.h"
+#include "../src/DataStructs/Dictionary/Dictionary.h"
 
 void Tree_AVL_Test() {
     AVL *tree = initializeAVL();
@@ -35,8 +36,23 @@ void File_Test() {
     }
 }
 
+void DictionaryTest() {
+    Dictionary test = initializeDictionary();
+    addElement(&test, 'c', "asdsasdasdasd");
+    addElement(&test, 'e', "asdasdasdsagsssg");
+    addElement(&test, 'a', "0000010");
+    addElement(&test, 'b', "bananaaaaaaaa");
+    printf(
+            "%s\n%s\n%s\n",
+            getElementByKey(&test, 'c'),
+            getElementByKey(&test, 'b'),
+            getElementByKey(&test, 'a')
+    );
+}
+
 int main() {
     Tree_AVL_Test();
     File_Test();
+    DictionaryTest();
     return 0;
 }
