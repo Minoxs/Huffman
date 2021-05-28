@@ -9,6 +9,8 @@ FILE* getTextFile(char* filename) {
     return fopen(filename, "r");
 }
 
-// TODO 'Create HuffmanTree Encoded File & HuffmanTree Encoding Table File' (EncodedText, EncodingTree) -> (EncodedFile, EncodingFile)
+FILE* openOutputFile(char* filename) {
+    return fopen(filename, "wb");
+}
 
 // TODO 'Get Encoded Text' (EncodedFile, EncodingFile) -> (EncodedText, EncodingTree)

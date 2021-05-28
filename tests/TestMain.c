@@ -46,13 +46,8 @@ void File_Test() {
         }
 
         HuffmanTree* tree = createEncodingTree(table);
-
-        //TODO FOR NOW DICTIONARY HAS STRINGS AS VALUES, BUT SHOULD BE A BIT THING
-        Dictionary dict = getEncodeDictionary(tree);
-        printf("%s\n", getElementByKey(&dict, 'T'));
-        printf("%s\n", getElementByKey(&dict, 'h'));
-        printf("%s\n", getElementByKey(&dict, 'i'));
-        printf("%s\n", getElementByKey(&dict, 's'));
+        FILE* output = openOutputFile("../tests/Encoded.huf");
+        encodeText(text, tree, output);
     }
 }
 

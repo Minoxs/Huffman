@@ -4,6 +4,7 @@
 //
 
 #include <stdlib.h>
+#include <string.h>
 #include "HuffmanEncoding.h"
 
 #define BUFFER_SIZE 256
@@ -75,6 +76,49 @@ Dictionary getEncodeDictionary(HuffmanTree* tree) {
     return encode;
 }
 
-// TODO 'Encode Text' (Text, EncodingTree) -> (EncodedText)
+/**
+ * Encodes the text with the given tree and saves to the output file
+ * @param text   (FILE* in r  mode)
+ * @param tree   (HuffmanTree*)
+ * @param output (FILE* in wb mode)
+ */
+void encodeText(FILE* text, HuffmanTree* tree, FILE* output) {
+    char ENCODE_BUFFER[BUFFER_SIZE];
+    Dictionary encode = getEncodeDictionary(tree);
+
+    // Must batch the bits into batches of 8 (byte) before writing to file
+    int size = 0;
+    char byte = (char) 0x00;
+    while (fgets(ENCODE_BUFFER, BUFFER_SIZE, text)) {
+        for (int i = 0; i < BUFFER_SIZE && ENCODE_BUFFER[i] != '\0'; ++i) {
+            char* toEncode = getElementByKey(&encode, ENCODE_BUFFER[i]);
+            size_t strSize = strlen(toEncode);
+
+            for (int j = 0; j < strSize; ++j) {
+                byte = (char) (byte << 1);
+                if (toEncode[j] == '1')
+                    byte += 1;
+                size += 1;
+                if (size == 8) {
+                    fwrite(&byte, sizeof(char), 1, output);
+                    size = 0;
+                }
+            }
+        }
+    }
+
+    // Writes the last byte if it wasn't batched with extra 0s needed
+    if (size > 0) {
+        byte = (char) (byte << (8-size));
+        fwrite(&byte, sizeof(char), 1, output);
+        byte = (char) (8-size);
+    }
+    else {
+        byte = (char) 0x00;
+    }
+
+    // Needs to write down how many bits to ignore from the last character
+    fwrite(&byte, sizeof(char), 1, output);
+}
 
 // TODO 'Decode Text' (EncodedText, EncodingTree) -> Text
