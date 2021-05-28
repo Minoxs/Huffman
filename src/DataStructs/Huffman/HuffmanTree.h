@@ -26,4 +26,6 @@ HuffmanTree* appendTwoElements(HuffmanTree* elem1, HuffmanTree* elem2);
 HuffmanTree* popFromStart(HuffmanList** list);
 void insertHList(HuffmanList** list, HuffmanTree* tree);
 
+int isLeaf(HuffmanTree* node);
+
 #endif //HUFFMAN_TREE_H
