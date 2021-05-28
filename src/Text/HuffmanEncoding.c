@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include "HuffmanEncoding.h"
 
+#define BUFFER_SIZE 256
+
 /**
  * Creates the encoding tree given the counted letters in order
  * @param letters
@@ -24,8 +26,6 @@ HuffmanTree* createEncodingTree(CountedLetters* letters) {
 
     return popFromStart(&list);
 }
-
-#define BUFFER_SIZE 128
 
 // This will take the huffman tree and spit out a dictionary that is easier to deal with -- useful for encoding text
 void Internal_GetEncodeValues(HuffmanTree* node, Dictionary* dict, char* POS_BUFFER, int pos) {
@@ -61,13 +61,16 @@ void Internal_GetEncodeValues(HuffmanTree* node, Dictionary* dict, char* POS_BUF
  */
 Dictionary getEncodeDictionary(HuffmanTree* tree) {
     Dictionary encode = initializeDictionary();
+    int size = getHufHeight(tree)+2;
 
-    char POS_BUFFER[BUFFER_SIZE];
-    for (int i = 0; i < BUFFER_SIZE; ++i) {
+    char* POS_BUFFER = calloc(size, sizeof(char));
+    for (int i = 0; i < size; ++i) {
         POS_BUFFER[i] = '\0';
     }
 
     Internal_GetEncodeValues(tree, &encode, POS_BUFFER, 0);
+
+    free(POS_BUFFER);
 
     return encode;
 }
