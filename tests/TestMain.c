@@ -8,7 +8,6 @@
 #include "../src/Text/TextCounter.h"
 #include "../src/DataStructs/Huffman/HuffmanTree.h"
 #include "../src/Text/HuffmanEncoding.h"
-#include "../src/DataStructs/Dictionary/Dictionary.h"
 
 void Tree_AVL_Test() {
     AVL *tree = initializeAVL();
@@ -19,6 +18,20 @@ void Tree_AVL_Test() {
     }
 
     printTree(tree);
+}
+
+void DictionaryTest() {
+    Dictionary test = initializeDictionary();
+    addElement(&test, 'c', "peste");
+    addElement(&test, 'e', "asdasdasdsagsssg");
+    addElement(&test, 'a', "0000010");
+    addElement(&test, 'b', "bananaaaaaaaa");
+    printf(
+            "%s\n%s\n%s\n",
+            getElementByKey(&test, 'c'),
+            getElementByKey(&test, 'b'),
+            getElementByKey(&test, 'a')
+    );
 }
 
 void File_Test() {
@@ -33,26 +46,19 @@ void File_Test() {
         }
 
         HuffmanTree* tree = createEncodingTree(table);
-    }
-}
 
-void DictionaryTest() {
-    Dictionary test = initializeDictionary();
-    addElement(&test, 'c', "asdsasdasdasd");
-    addElement(&test, 'e', "asdasdasdsagsssg");
-    addElement(&test, 'a', "0000010");
-    addElement(&test, 'b', "bananaaaaaaaa");
-    printf(
-            "%s\n%s\n%s\n",
-            getElementByKey(&test, 'c'),
-            getElementByKey(&test, 'b'),
-            getElementByKey(&test, 'a')
-    );
+        //TODO FOR NOW DICTIONARY HAS STRINGS AS VALUES, BUT SHOULD BE A BIT THING
+        Dictionary dict = getEncodeDictionary(tree);
+        printf("%s\n", getElementByKey(&dict, 'T'));
+        printf("%s\n", getElementByKey(&dict, 'h'));
+        printf("%s\n", getElementByKey(&dict, 'i'));
+        printf("%s\n", getElementByKey(&dict, 's'));
+    }
 }
 
 int main() {
     Tree_AVL_Test();
-    File_Test();
     DictionaryTest();
+    File_Test();
     return 0;
 }
