@@ -100,5 +100,6 @@ CountedLetters* parseText(FILE* text) {
             insertNode(&countTree, toCount[i], 1);
         }
     }
+    fseek(text, 0, SEEK_SET);
     return flattenTree(&countTree);
 }
