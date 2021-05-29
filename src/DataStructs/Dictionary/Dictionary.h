@@ -18,5 +18,6 @@ Dictionary initializeDictionary();
 
 void addElement(Dictionary* dict, char key, char* value);
 char* getElementByKey(Dictionary* dict, char key);
+void printDictionary(Dictionary* dict);
 
 #endif //HUFFMAN_DICTIONARY_H
