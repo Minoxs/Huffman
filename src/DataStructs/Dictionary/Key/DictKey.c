@@ -46,3 +46,13 @@ int getIndexOfKey(DictKey* dictKey, char key) {
     }
     return -1;
 }
+
+/**
+ * Returns key given index
+ * @param dictKey
+ * @param index
+ * @return
+ */
+char getKeyByIndex(DictKey* dictKey, int index) {
+    return dictKey->keyList.infoArray[index]->key;
+}
