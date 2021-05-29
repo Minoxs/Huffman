@@ -124,4 +124,48 @@ void encodeText(FILE* text, HuffmanTree* tree, FILE* output) {
     fseek(output, 0, SEEK_END);
 }
 
+// Internal recursive method to save tree to file
+void Internal_saveTreeToFile(HuffmanTree* node, FILE* ptr)
+{
+    if (node != NULL) {
+        fputc(node->key, ptr);
+        if (node->key == NULL_CHAR) {
+            Internal_saveTreeToFile(node->left, ptr);
+            Internal_saveTreeToFile(node->right, ptr);
+        }
+    }
+    else {
+        fputc(NULL_CHAR, ptr);
+    }
+}
+
+// Internal recursive method to load tree from file
+HuffmanTree* Internal_loadTreeFromFile(FILE* ptr) {
+    char byte = (char) fgetc(ptr);
+    HuffmanTree* newNode = createHuffmanElement((LetterCount) {byte, 0}, NULL, NULL);
+    if (byte == NULL_CHAR) {
+        newNode->left = Internal_loadTreeFromFile(ptr);
+        newNode->right = Internal_loadTreeFromFile(ptr);
+    }
+    return newNode;
+}
+
+/**
+ * Loads the from the file given
+ * @param ptr
+ * @return
+ */
+HuffmanTree* loadTreeFromFile(FILE* ptr) {
+    return Internal_loadTreeFromFile(ptr);
+}
+
+/**
+ * Salva a árvore no arquivo apontado
+ * @param tree
+ * @param ptr FILE* em modo "wb"
+ */
+void saveTreeToFile(HuffmanTree* tree, FILE* ptr) {
+    Internal_saveTreeToFile(tree, ptr);
+}
+
 // TODO 'Decode Text' (EncodedText, EncodingTree) -> Text
