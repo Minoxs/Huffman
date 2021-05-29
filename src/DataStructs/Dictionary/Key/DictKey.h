@@ -15,5 +15,6 @@ typedef struct DictKey_st {
 DictKey initializeDictKey();
 void addKey(DictKey* dictKey, char key);
 int getIndexOfKey(DictKey* dictKey, char key);
+char getKeyByIndex(DictKey* dictKey, int index);
 
 #endif //HUFFMAN_DICTKEY_H
