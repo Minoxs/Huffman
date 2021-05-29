@@ -48,7 +48,20 @@ void File_Test() {
         HuffmanTree* tree = createEncodingTree(table);
         FILE* output = openOutputFile("../tests/Encoded.huf");
         encodeText(text, tree, output);
+        fclose(output);
+        FILE* treeFile = openOutputFile("../tests/EncodedTree.huftree");
+        saveTreeToFile(tree, treeFile);
+        fclose(treeFile);
+
+        Dictionary dictBefore = getEncodeDictionary(tree);
+        printDictionary(&dictBefore);
     }
+    fclose(text);
+    FILE* openTree = openTreeFile("../tests/EncodedTree.huftree");
+    HuffmanTree* tree = loadTreeFromFile(openTree);
+    Dictionary dictAfter = getEncodeDictionary(tree);
+    printDictionary(&dictAfter);
+    fclose(openTree);
 }
 
 int main() {
