@@ -85,6 +85,7 @@ Dictionary getEncodeDictionary(HuffmanTree* tree) {
 void encodeText(FILE* text, HuffmanTree* tree, FILE* output) {
     char ENCODE_BUFFER[BUFFER_SIZE];
     Dictionary encode = getEncodeDictionary(tree);
+    fputc(0x00, output); // The first byte tells how many bits to ignore from the last byte
 
     // Must batch the bits into batches of 8 (byte) before writing to file
     int size = 0;
@@ -100,7 +101,7 @@ void encodeText(FILE* text, HuffmanTree* tree, FILE* output) {
                     byte += 1;
                 size += 1;
                 if (size == 8) {
-                    fwrite(&byte, sizeof(char), 1, output);
+                    fputc(byte, output);
                     size = 0;
                 }
             }
@@ -110,7 +111,7 @@ void encodeText(FILE* text, HuffmanTree* tree, FILE* output) {
     // Writes the last byte if it wasn't batched with extra 0s needed
     if (size > 0) {
         byte = (char) (byte << (8-size));
-        fwrite(&byte, sizeof(char), 1, output);
+        fputc(byte, output);
         byte = (char) (8-size);
     }
     else {
@@ -118,7 +119,9 @@ void encodeText(FILE* text, HuffmanTree* tree, FILE* output) {
     }
 
     // Needs to write down how many bits to ignore from the last character
-    fwrite(&byte, sizeof(char), 1, output);
+    fseek(output, 0, SEEK_SET);
+    fputc(byte, output);
+    fseek(output, 0, SEEK_END);
 }
 
 // TODO 'Decode Text' (EncodedText, EncodingTree) -> Text
