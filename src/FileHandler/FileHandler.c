@@ -13,4 +13,8 @@ FILE* openOutputFile(char* filename) {
     return fopen(filename, "wb");
 }
 
+FILE* openTreeFile(char* filename) {
+    return fopen(filename, "rb");
+}
+
 // TODO 'Get Encoded Text' (EncodedFile, EncodingFile) -> (EncodedText, EncodingTree)

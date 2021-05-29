@@ -10,5 +10,6 @@
 
 FILE* getTextFile(char* filename);
 FILE* openOutputFile(char* filename);
+FILE* openTreeFile(char* filename);
 
 #endif //FILE_HANDLER_H
