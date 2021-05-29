@@ -20,6 +20,7 @@ typedef struct HuffmanList_st {
     struct HuffmanList_st *next;
 } HuffmanList;
 
+HuffmanTree* createHuffmanElement(LetterCount letter, HuffmanTree* left, HuffmanTree* right);
 HuffmanList* countedLettersToHuffmanList(CountedLetters* letters);
 HuffmanTree* appendTwoElements(HuffmanTree* elem1, HuffmanTree* elem2);
 
