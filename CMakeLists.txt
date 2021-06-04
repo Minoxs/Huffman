@@ -27,8 +27,11 @@ SET(SOURCE_FILES
         src/DataStructs/Dictionary/Dictionary.h
         src/ErrorCodes.h)
 
-#Main C stuff
-add_executable(Huffman ${SOURCE_FILES} tests/TestMain.c)
+#Main C
+add_executable(Huffman ${SOURCE_FILES} src/ConsoleApplication/ConsoleApplication.c)
+
+#Tests executable
+add_executable(Huffman_Tests ${SOURCE_FILES} tests/TestMain.c)
 
 #Python Wrapper Stuff
 #This will be left just as an example for now
