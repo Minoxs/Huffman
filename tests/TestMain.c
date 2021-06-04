@@ -35,7 +35,7 @@ void DictionaryTest() {
 }
 
 void File_Test() {
-    FILE *text = getTextFile("../tests/Test.txt");
+    FILE *text = readTextfile("../tests/Test.txt");
     if (text != NULL) {
         CountedLetters* table = parseText(text);
         if (table == NULL) return;
@@ -46,10 +46,10 @@ void File_Test() {
         }
 
         HuffmanTree* tree = createEncodingTree(table);
-        FILE* output = openOutputFile("../tests/Encoded.huf");
+        FILE* output = writeBinaryFile("../tests/Encoded.huf");
         encodeText(text, tree, output);
         fclose(output);
-        FILE* treeFile = openOutputFile("../tests/EncodedTree.huftree");
+        FILE* treeFile = writeBinaryFile("../tests/EncodedTree.huftree");
         saveTreeToFile(tree, treeFile);
         fclose(treeFile);
 
@@ -57,16 +57,29 @@ void File_Test() {
         printDictionary(&dictBefore);
     }
     fclose(text);
-    FILE* openTree = openTreeFile("../tests/EncodedTree.huftree");
+    FILE* openTree = readBinaryFile("../tests/EncodedTree.huftree");
     HuffmanTree* tree = loadTreeFromFile(openTree);
     Dictionary dictAfter = getEncodeDictionary(tree);
     printDictionary(&dictAfter);
     fclose(openTree);
 }
 
+void Read_Write_Test() {
+    FILE* treeFile = readBinaryFile("../tests/EncodedTree.huftree");
+    HuffmanTree* tree = loadTreeFromFile(treeFile);
+    fclose(treeFile);
+
+    FILE* textFile = readBinaryFile("../tests/Encoded.huf");
+    FILE* outputFile = writeTextfile("../tests/Decoded.txt");
+    decodeText(textFile, tree, outputFile);
+    fclose(textFile);
+    fclose(outputFile);
+}
+
 int main() {
     Tree_AVL_Test();
     DictionaryTest();
     File_Test();
+    Read_Write_Test();
     return 0;
 }
