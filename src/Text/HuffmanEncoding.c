@@ -168,7 +168,6 @@ void saveTreeToFile(HuffmanTree* tree, FILE* ptr) {
     Internal_saveTreeToFile(tree, ptr);
 }
 
-// TODO 'Decode Text' (EncodedText, EncodingTree) -> Text
 void decodeText(FILE *text, HuffmanTree *tree, FILE *output) {
     HuffmanTree* aux = tree;
     char ignoreBits = (char) fgetc(text);
@@ -177,6 +176,7 @@ void decodeText(FILE *text, HuffmanTree *tree, FILE *output) {
     nextByte = (char) fgetc(text);
     while (!feof(text)) {
         // Gets byte
+        // I do it this way so that I can use feof() to know if I'm in the last byte of the file
         byte = nextByte;
         nextByte = (char) fgetc(text);
 
@@ -188,7 +188,7 @@ void decodeText(FILE *text, HuffmanTree *tree, FILE *output) {
 
         // Get the left-most bit and transform into characters
         for (int i = 0; i < usableBits; ++i) {
-            char bit = (char) (byte & 0x80);
+            char bit = (char) (byte & 0x80); // 0x80 = 0b 1000 0000 -> Checks if the first bit is 1 or 0
             byte = (char) (byte << 1);
 
             if (bit) {
