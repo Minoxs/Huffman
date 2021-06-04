@@ -168,6 +168,13 @@ void saveTreeToFile(HuffmanTree* tree, FILE* ptr) {
     Internal_saveTreeToFile(tree, ptr);
 }
 
+/**
+ * Decodes the given text using the given tree
+ * if output is NULL, prints to console
+ * @param text
+ * @param tree
+ * @param output
+ */
 void decodeText(FILE *text, HuffmanTree *tree, FILE *output) {
     HuffmanTree* aux = tree;
     char ignoreBits = (char) fgetc(text);
