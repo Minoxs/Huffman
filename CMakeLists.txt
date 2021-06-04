@@ -25,7 +25,7 @@ SET(SOURCE_FILES
         src/DataStructs/Dictionary/Value/DictValue.h
         src/DataStructs/Dictionary/Dictionary.c
         src/DataStructs/Dictionary/Dictionary.h
-)
+        src/ErrorCodes.h)
 
 #Main C stuff
 add_executable(Huffman ${SOURCE_FILES} tests/TestMain.c)
