@@ -108,9 +108,11 @@ int main(int argc, char* argv[]) {
         }
 
         if (argc >= MINIMUM_DECODE_ARGUMENTS + 2) {
-            outputText = writeTextfile(argv[4]);
+            strcpy(NAME_BUFFER, argv[4]);
+            strcat(NAME_BUFFER, ".txt");
+            outputText = writeTextfile(NAME_BUFFER);
             if (outputText == NULL) {
-                ERROR_RETURN = argv[4];
+                ERROR_RETURN = NAME_BUFFER;
                 goto WRITE_ERROR;
             }
         }
