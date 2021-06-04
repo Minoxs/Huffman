@@ -20,5 +20,3 @@ FILE* writeBinaryFile(char* filename) {
 FILE* readBinaryFile(char* filename) {
     return fopen(filename, "rb");
 }
-
-// TODO 'Get Encoded Text' (EncodedFile, EncodingFile) -> (EncodedText, EncodingTree)

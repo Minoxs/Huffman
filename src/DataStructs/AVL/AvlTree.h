@@ -6,7 +6,6 @@
 #ifndef INC_2_ESTRUTURADEDADOS_AVL_H
 #define INC_2_ESTRUTURADEDADOS_AVL_H
 
-// TODO Move AVL structure inside .c file?
 typedef struct AVL_st {
     char key;
     int count;
