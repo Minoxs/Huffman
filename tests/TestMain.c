@@ -3,6 +3,10 @@
 // Github: https://github.com/minoxs
 //
 
+/*
+ * Every file path used in the test functions assume that the executable is inside cmake-build-debug or cmake-build-release
+ */
+
 #include "../src/DataStructs//AVL/AvlTree.h"
 #include "../src/FileHandler/FileHandler.h"
 #include "../src/Text/TextCounter.h"
@@ -34,7 +38,7 @@ void DictionaryTest() {
     );
 }
 
-void File_Test() {
+void ManualEncodeText_And_Dictionary_Test() {
     FILE *text = readTextfile("../tests/Test.txt");
     if (text != NULL) {
         CountedLetters* table = parseText(text);
@@ -64,22 +68,35 @@ void File_Test() {
     fclose(openTree);
 }
 
-void Read_Write_Test() {
-    FILE* treeFile = readBinaryFile("../tests/EncodedTree.huftree");
-    HuffmanTree* tree = loadTreeFromFile(treeFile);
-    fclose(treeFile);
+void Encode_Text_Test() {
+    FILE* text = readTextfile("../tests/Test.txt");
+    FILE* encodedTextOutput = writeBinaryFile("../tests/Encoded.huf");
+    FILE* encodedTreeOutput = writeBinaryFile("../tests/EncodedTree.huftree");
 
+    RunEncodeText(text, encodedTextOutput, encodedTreeOutput);
+
+    fclose(text);
+    fclose(encodedTextOutput);
+    fclose(encodedTreeOutput);
+}
+
+void Decode_Text_Test() {
     FILE* textFile = readBinaryFile("../tests/Encoded.huf");
+    FILE* treeFile = readBinaryFile("../tests/EncodedTree.huftree");
     FILE* outputFile = writeTextfile("../tests/Decoded.txt");
-    decodeText(textFile, tree, outputFile);
+
+    RunDecodeText(textFile, treeFile, outputFile);
+
     fclose(textFile);
+    fclose(treeFile);
     fclose(outputFile);
 }
 
 int main() {
     Tree_AVL_Test();
     DictionaryTest();
-    File_Test();
-    Read_Write_Test();
+    ManualEncodeText_And_Dictionary_Test();
+    Encode_Text_Test();
+    Decode_Text_Test();
     return 0;
 }
