@@ -169,3 +169,45 @@ void saveTreeToFile(HuffmanTree* tree, FILE* ptr) {
 }
 
 // TODO 'Decode Text' (EncodedText, EncodingTree) -> Text
+void decodeText(FILE *text, HuffmanTree *tree, FILE *output) {
+    HuffmanTree* aux = tree;
+    char ignoreBits = (char) fgetc(text);
+    char byte, nextByte;
+
+    nextByte = (char) fgetc(text);
+    while (!feof(text)) {
+        // Gets byte
+        byte = nextByte;
+        nextByte = (char) fgetc(text);
+
+        // Checks if end of file (if it is, remove unusable bits)
+        int usableBits = 8;
+        if (feof(text)) {
+            usableBits -= ignoreBits;
+        }
+
+        // Get the left-most bit and transform into characters
+        for (int i = 0; i < usableBits; ++i) {
+            char bit = (char) (byte & 0x80);
+            byte = (char) (byte << 1);
+
+            if (bit) {
+                aux = aux->right;
+            }
+            else {
+                aux = aux->left;
+            }
+
+            // If output file is open, print to it, else print to console
+            if (isLeaf(aux)) {
+                if (output != NULL) {
+                    fputc(aux->key, output);
+                }
+                else {
+                    printf("%c", aux->key);
+                }
+                aux = tree; // Go back to start of tree
+            }
+        }
+    }
+}

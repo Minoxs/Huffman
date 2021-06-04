@@ -8,8 +8,9 @@
 
 #include <stdio.h>
 
-FILE* getTextFile(char* filename);
-FILE* openOutputFile(char* filename);
-FILE* openTreeFile(char* filename);
+FILE* writeTextfile(char* filename);
+FILE* readTextfile(char* filename);
+FILE* writeBinaryFile(char* filename);
+FILE* readBinaryFile(char* filename);
 
 #endif //FILE_HANDLER_H

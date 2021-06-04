@@ -5,15 +5,19 @@
 
 #include "FileHandler.h"
 
-FILE* getTextFile(char* filename) {
+FILE* writeTextfile(char* filename) {
+    return fopen(filename, "w");
+}
+
+FILE* readTextfile(char* filename) {
     return fopen(filename, "r");
 }
 
-FILE* openOutputFile(char* filename) {
+FILE* writeBinaryFile(char* filename) {
     return fopen(filename, "wb");
 }
 
-FILE* openTreeFile(char* filename) {
+FILE* readBinaryFile(char* filename) {
     return fopen(filename, "rb");
 }
 
