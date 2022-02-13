@@ -20,5 +20,5 @@ the last byte of the file.
 # Console Application
 I made a small terrible thingy to encode/decode text files, just build Huffman from cmake and run it with no arguments to display help on how to use it. :)
 
-# Future Plans
-If I don't get distracted with other projects, I will write a Python Wrapper to allow encoding/decoding from a python script. 
+# Python Wrapper
+I finally got around to making a simple python wrapper! More detail in its folder. 
