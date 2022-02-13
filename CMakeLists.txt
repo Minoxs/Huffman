@@ -35,7 +35,7 @@ add_executable(Huffman_Tests ${SOURCE_FILES} tests/TestMain.c)
 
 #Python Wrapper Stuff
 #This will be left just as an example for now
-set(PYTHON_WRAPPER_LIB fputs_teste) # Name of Target
+set(PYTHON_WRAPPER_LIB huffman_c) # Name of Target
 
 # Finds Python stuff
 find_package(PythonInterp 3.8 REQUIRED)
@@ -50,7 +50,7 @@ include_directories($ENV{PYTHON_INCLUDE_DIRS})
 link_libraries($ENV{PYTHON_LIBRARIES})
 
 # Command to create Wrapper library
-add_library(${PYTHON_WRAPPER_LIB} SHARED src/PythonWrapper/PythonWrapper.c)
+add_library(${PYTHON_WRAPPER_LIB} SHARED ${SOURCE_FILES} src/PythonWrapper/PythonWrapper.c)
 
 # Sets output properties
 set_target_properties(
@@ -63,9 +63,9 @@ set_target_properties(
 )
 
 # (Optional) Copies the library file to /venv/ folder
-add_custom_command(TARGET fputs_teste POST_BUILD
+add_custom_command(TARGET ${PYTHON_WRAPPER_LIB} POST_BUILD
         COMMAND "${CMAKE_COMMAND}" -E copy
         "$<TARGET_FILE:${PYTHON_WRAPPER_LIB}>"
-        "${CMAKE_SOURCE_DIR}/venv/Lib/site-packages/$<TARGET_FILE_NAME:${PYTHON_WRAPPER_LIB}>"
+        "${CMAKE_SOURCE_DIR}/venv/DLLs/$<TARGET_FILE_NAME:${PYTHON_WRAPPER_LIB}>"
         COMMENT "Copying to output directory"
 )
