@@ -83,6 +83,9 @@ int main(int argc, char* argv[]) {
         int returnCode = RunEncodeText(inputText, outputText, outputTree);
         if (returnCode)
             printf("Error %d while encoding text\n", returnCode);
+        fclose(inputText);
+        fclose(outputText);
+        fclose(outputTree);
         return returnCode;
     }
     else if (!strcmp(argv[1], "decode")) {
@@ -123,6 +126,9 @@ int main(int argc, char* argv[]) {
         int returnCode = RunDecodeText(inputEncodedText, inputEncodedTree, outputText);
         if (returnCode)
             printf("Error %d while decoding text\n", returnCode);
+        fclose(inputEncodedText);
+        fclose(inputEncodedTree);
+        fclose(outputText);
         return returnCode;
     }
     else {
